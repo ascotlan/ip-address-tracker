@@ -22,8 +22,26 @@
   </head>
   <body>
     <header class="header">
-      <label for="ip-search"><h1>IP Address Tracker</h1></label>
-      <input type="text" id="ip-search" />
+      <form id="form">
+        <label for="ip-search"
+          ><h1 class="header-text">IP Address Tracker</h1>
+        </label>
+        <input
+          type="text"
+          id="ip-search"
+          name="search"
+          placeholder="Search for an IP address or domain"
+          required
+        />
+        <button type="submit" class="btn">
+          <img
+            class="btn-image"
+            src="./images/icon-arrow.svg"
+            alt="right facing arrow"
+          />
+        </button>
+      </form>
+
       <div class="location"></div>
     </header>
     <main class="show-map" id="map"></main>

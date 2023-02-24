@@ -1,14 +1,27 @@
-import getLocation from "./requests";
+import { coordinates } from "./ip-address";
 
-const coordinates = async (ip = "") => {
-  const data = await getLocation(ip);
-  console.log(data);
-};
+const ipText = document.querySelector("#form");
+ipText.addEventListener("submit", (e) => {
+  const text = new FormData(ipText);
+  // loop through the key value pairs of input element name and value
+  for (const input of text.entries()) {
+    // use regex to validate the ip address then call coordinates(ip)
+    if (
+      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+        `${input[1]}`
+      )
+    ) {
+      coordinates(`${input[1]}`, 0);
+    }
 
-const ipText = document.querySelector("#ip-search");
-ipText.addEventListener("input", (e) => {
-  // use regex to validate the ip address then call coordinates(ip)
-  coordinates(e.target.value);
+    //use regex to validate a FQDN then call coordinates(domain)
+    if (
+      /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g.test(
+        `${input[1]}`
+      )
+    ) {
+      coordinates(`${input[1]}`, 1);
+    }
+  }
+  e.preventDefault();
 });
-
-coordinates(" ");
